@@ -48,9 +48,9 @@ void loadData() {
     //if (eruptionVEI.containsKey(str(vei))) { //Add eruption to array of VEI
     //  eruptionVEI.get(vei).add(e);
     //} else {
-    //  ArrayList<V_Eruption> eruptions = new ArrayList<V_Eruption>();
-    //  eruptions.add(e);
-    //  eruptionVEI.put(str(vei), eruptions);
+    //  ArrayList<V_Eruption> eruptionV = new ArrayList<V_Eruption>();
+    //  eruptionV.add(e);
+    //  eruptionVEI.put(str(vei), eruptionV);
     //} 
     if (!volcanoMap.containsKey(name)) { //If volcano not tracked, add it to the volcanoMap
       volcanoMap.put(name, v);
