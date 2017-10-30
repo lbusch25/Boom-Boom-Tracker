@@ -1,25 +1,24 @@
 class Volcano {
   float x, y;
-  int day, month, year;
+  //int day, month, year;
   String name;
+  ArrayList<V_Eruption> eruptions;
   
   boolean over = false;
   
-  Volcano(float lat, float lng, int tempD, int tempM, int tempY, String n){
+  Volcano(float lat, float lng, String n){
     //x = cos(lat)*cos(lng);
     x = (lng - width/2)*cos(height); //equirectangular projection
     //y = cos(lat)*sin(lng);
-    y = (lat - 0); //equirectangular projection
-    day = tempD;
-    month = tempM;
-    year = tempY;
+    y = (lat + height/4); //equirectangular projection
     name = n;
+    eruptions = new ArrayList<V_Eruption>();
   }
   
   void display(){
     stroke(0);
-    strokeWeight(2);
+    //strokeWeight(2);
     fill(255, 0, 0);
-    triangle(x-1, y-1, x, y, x+1, y+1);
+    triangle(x - 5, y + 5, x, y, x + 5, y + 5);
   }
 }
