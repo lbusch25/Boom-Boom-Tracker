@@ -5,22 +5,28 @@ HashMap<String, Volcano> volcanoMap = new HashMap<String, Volcano>();
 HashMap<String, ArrayList<V_Eruption>> eruptionYears = new HashMap<String, ArrayList<V_Eruption>>();
 HashMap<String, ArrayList<V_Eruption>> eruptionVEI = new HashMap<String, ArrayList<V_Eruption>>();
 
+//Volcano phoenix = new Volcano(33.44, -112.07, "Phoenix");
+
 void setup() {
-  size(600, 600);
+  size(800, 800);
   pixelDensity(displayDensity());
   earth = loadImage("Earth.png");
   loadData();
 }
 
 void draw() {
+  //Volcano phoenix = new Volcano(33.44, -112.07, "Phoenix");
   //background(255);
   image(earth, 0, 0, width, height/2);
   //for(Volcano v: volcanos) {
   //  v.display(); //Just drawing every volcano right now, not eruptions.
-  //}
+  //} 
   for(String n: volcanoMap.keySet()){
     volcanoMap.get(n).display(); //Just drawing every volcano right now, need to fix 
   } //The lat/lng conversion before we start working on drawing eruptions
+  fill(0, 255, 0);
+  //triangle(phoenix.x - 15, phoenix.y - 15, phoenix.x, phoenix.y, phoenix.x + 15, phoenix.y + 15);
+  //phoenix.display();
 }
 
 void loadData() {

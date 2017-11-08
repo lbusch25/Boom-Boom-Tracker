@@ -7,10 +7,8 @@ class Volcano {
   boolean over = false;
   
   Volcano(float lat, float lng, String n){
-    //x = cos(lat)*cos(lng);
-    x = (lng - width/2)*cos(height); //equirectangular projection
-    //y = cos(lat)*sin(lng);
-    y = (lat + height/4); //equirectangular projection
+    x = map(lng, -180, 180, 0, width);
+    y = map(lat, 90, -90, 0, height/2);
     name = n;
     eruptions = new ArrayList<V_Eruption>();
   }
