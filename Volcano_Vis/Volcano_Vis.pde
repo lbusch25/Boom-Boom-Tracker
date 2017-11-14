@@ -1,3 +1,7 @@
+import g4p_controls.*; //GUI lib import
+
+GDropList yearDlist; //For GUI
+
 Table table;
 PImage earth;
 //ArrayList<Volcano> volcanos = new ArrayList<Volcano>(); //Might want to maket this a HashMap
@@ -27,6 +31,20 @@ void draw() {
   fill(0, 255, 0);
   //triangle(phoenix.x - 15, phoenix.y - 15, phoenix.x, phoenix.y, phoenix.x + 15, phoenix.y + 15);
   //phoenix.display();
+  
+  //Dropdown testing
+  yearDlist = new GDropList(this, 0, 0, 50, 50);
+  String[] list = new String[6];
+  for (int i = 0;i<list.length;i++){
+    if(i == 0){
+      list[i] = "All";
+    }else{
+    list[i] = str(1990+i);
+    }
+  }
+  
+  yearDlist.setItems(list, -1);
+  yearDlist.draw();
 }
 
 void loadData() {
@@ -62,4 +80,9 @@ void loadData() {
       volcanoMap.put(name, v);
     }
   }
+}
+
+// created for dropDown might want to make a new class for the dropdowns we want to use
+void handleDropListEvents(GDropList list, GEvent event){
+
 }
