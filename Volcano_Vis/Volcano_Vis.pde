@@ -32,8 +32,8 @@ void draw() {
   //triangle(phoenix.x - 15, phoenix.y - 15, phoenix.x, phoenix.y, phoenix.x + 15, phoenix.y + 15);
   //phoenix.display();
   
-  //Dropdown testing
-  yearDlist = new GDropList(this, 0, 0, 50, 50);
+  //Dropdown testing MOVE OUT OF DRAW NO MORE MEMORY!!!
+  yearDlist = new GDropList(this, width-100, height/2, 100, 100);
   String[] list = new String[6];
   for (int i = 0;i<list.length;i++){
     if(i == 0){
