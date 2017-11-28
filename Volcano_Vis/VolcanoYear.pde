@@ -1,11 +1,11 @@
 
 
-class VolcanoYear {
+class VolcanoInYear {
   int year;
   Volcano[] volcanoList;
   
   
-  VolcanoYear(int yearT, Volcano[] volcanoListT){
+  VolcanoInYear(int yearT, Volcano[] volcanoListT){
     year = yearT;
     volcanoList = volcanoListT;
    }
