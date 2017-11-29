@@ -19,24 +19,14 @@ void setup() {
   earth = loadImage("Earth.png");
   loadData();
   
-  //veiDropDown = new DropDownMenu(this, "vei", new ArrayList<String>(eruptionVEI.keySet()));
-  yearDropDown = new DropDownMenu(this, "year", new ArrayList<String>(eruptionYears.keySet()));
-  for (String i: eruptionYears.keySet()){
-    println(i);
-  }
+  veiDropDown = new DropDownMenu(this, "vei", new ArrayList<String>(eruptionVEI.keySet()));
+  //yearDropDown = new DropDownMenu(this, "year", new ArrayList<String>(eruptionYears.keySet()));
 }
 
 void draw() {
   //Volcano phoenix = new Volcano(33.44, -112.07, "Phoenix");
   //background(255);
   image(earth, 0, 0, width, height/2);
-  //for(Volcano v: volcanos) {
-  //  v.display(); //Just drawing every volcano right now, not eruptions.
-  //} 
-  //for(String n: volcanoMap.keySet()){
-  //  volcanoMap.get(n).display(); //Just drawing every volcano right now, need to fix 
-  //}
-  
   for(String i: eruptionVEI.keySet()) {
    ArrayList<V_Eruption> vol = eruptionVEI.get(i);
    for(V_Eruption e: vol){
@@ -61,7 +51,7 @@ void draw() {
   
   //yearDlist.setItems(list, -1);
   //yearDlist.draw();
-  yearDropDown.draw();
+  veiDropDown.draw();
   
   
 }
@@ -88,7 +78,6 @@ void loadData() {
         eruptionYears.put(str(year), eruptions);
       } 
       
-      //if(vei >= 0) {
         if(eruptionVEI.containsKey(str(vei))) {
           eruptionVEI.get(str(vei)).add(e);
         } else {
@@ -96,15 +85,6 @@ void loadData() {
           erupt.add(e);
           eruptionVEI.put(str(vei), erupt);
         }
-     // }
-    //Not working yet, probably due to null values in our data
-    //if (eruptionVEI.containsKey(str(vei))) { //Add eruption to array of VEI
-    //  eruptionVEI.get(vei).add(e);
-    //} else {
-    //  ArrayList<V_Eruption> eruptionV = new ArrayList<V_Eruption>();
-    //  eruptionV.add(e);
-    //  eruptionVEI.put(str(vei), eruptionV);
-    //} 
     if (!volcanoMap.containsKey(name)) { //If volcano not tracked, add it to the volcanoMap
       volcanoMap.put(name, v);
     }
