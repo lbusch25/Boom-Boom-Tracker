@@ -14,9 +14,9 @@ class Volcano {
   }
   
   void display(){
-    stroke(0);
+    //stroke(0);
     //strokeWeight(2);
-    fill(255, 0, 0);
-    triangle(x - 5, y + 5, x, y, x + 5, y + 5);
+    //fill(255, 0, 0);
+    triangle(x - 7, y + 7, x, y, x + 7, y + 7);
   }
 }

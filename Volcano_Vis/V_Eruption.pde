@@ -10,6 +10,16 @@ class V_Eruption {
     name = n;
   }
   
+  int calcRed() {
+    float redVal = map(VEI, 0, 7, 0, 255);
+    return (int) redVal;
+  }
+  
+    int calcGreen() {
+    float greenVal = map(VEI, 0, 7, 150, 0);
+    return (int) greenVal;
+  }
+  
   String getName() {
     return name;
   }
@@ -20,5 +30,11 @@ class V_Eruption {
   
   int getVEI() {
     return VEI;
+  }
+  
+  void display() {
+    stroke(0);
+    fill(this.calcRed(), 0, 0);
+    Volcano_Vis.volcanoMap.get(this.name).display();
   }
 }

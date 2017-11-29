@@ -7,7 +7,7 @@ DropDownMenu yearDropDown;
 Table table;
 PImage earth;
 //ArrayList<Volcano> volcanos = new ArrayList<Volcano>(); //Might want to maket this a HashMap
-HashMap<String, Volcano> volcanoMap = new HashMap<String, Volcano>();
+public static HashMap<String, Volcano> volcanoMap = new HashMap<String, Volcano>();
 HashMap<String, ArrayList<V_Eruption>> eruptionYears = new HashMap<String, ArrayList<V_Eruption>>();
 HashMap<String, ArrayList<V_Eruption>> eruptionVEI = new HashMap<String, ArrayList<V_Eruption>>();
 
@@ -40,8 +40,7 @@ void draw() {
   for(String i: eruptionVEI.keySet()) {
    ArrayList<V_Eruption> vol = eruptionVEI.get(i);
    for(V_Eruption e: vol){
-     Volcano v = volcanoMap.get(e.getName());
-     v.display();
+     e.display();
     }
   }
   //The lat/lng conversion before we start working on drawing eruptions
