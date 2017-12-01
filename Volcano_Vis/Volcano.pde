@@ -13,6 +13,13 @@ class Volcano {
     eruptions = new ArrayList<V_Eruption>();
   }
   
+  float getX() {
+    return this.x;
+  }
+  
+  float getY() {
+    return this.y;
+  }
   void display(){
     //stroke(0);
     //strokeWeight(2);

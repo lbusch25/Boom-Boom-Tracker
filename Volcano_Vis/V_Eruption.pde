@@ -1,6 +1,7 @@
 class V_Eruption {
   int day, month, year, VEI;
   String name;
+  boolean over;
   
   V_Eruption(int tempD, int tempM, int tempY, int tempV, String n) {
     day = tempD;
@@ -8,6 +9,16 @@ class V_Eruption {
     year = tempY;
     VEI = tempV;
     name = n;
+  }
+  
+  void rollOver(int mX, int mY) {
+    float vx = mX - Volcano_Vis.volcanoMap.get(this.name).getX();
+    float vy = mY - (Volcano_Vis.volcanoMap.get(this.name).getY() + 3.5);
+    if((vx*vx + vy*vy) <= 25) {
+      over = true;
+    } else {
+      over = false;
+    }
   }
   
   int calcRed() {
@@ -34,7 +45,12 @@ class V_Eruption {
   
   void display() {
     stroke(0);
-    fill(255, this.calcGreen(), 0);
-    Volcano_Vis.volcanoMap.get(this.name).display();
+    if(over) {
+      fill(255, 255, 255);
+      Volcano_Vis.volcanoMap.get(this.name).display();
+    } else {
+      fill(255, this.calcGreen(), 0);
+      Volcano_Vis.volcanoMap.get(this.name).display();
+    }
   }
 }

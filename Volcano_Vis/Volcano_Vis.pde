@@ -14,7 +14,7 @@ HashMap<String, ArrayList<V_Eruption>> eruptionVEI = new HashMap<String, ArrayLi
 //Volcano phoenix = new Volcano(33.44, -112.07, "Phoenix");
 
 void setup() {
-  size(800, 800);
+  size(800, 800, P2D);
   pixelDensity(displayDensity());
   earth = loadImage("Earth.png");
   loadData();
@@ -54,6 +54,17 @@ void draw() {
   veiDropDown.draw();
   
   
+}
+
+void mouseMoved() {
+  if(mouseY <= height/2) {
+   for(String i: eruptionVEI.keySet()) {
+     ArrayList<V_Eruption> vol = eruptionVEI.get(i);
+     for(V_Eruption e: vol){
+       e.rollOver(mouseX, mouseY);
+     }
+   }
+  }
 }
 
 void loadData() {
