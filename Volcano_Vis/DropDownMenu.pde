@@ -10,7 +10,7 @@ class DropDownMenu{
   DropDownMenu(PApplet canvasT, String typeT, ArrayList<String> items){
     canvas = canvasT;
     type = typeT;
-    
+
     dropDown = new GDropList(canvas, canvas.width-100, canvas.height/2, 100, 100, NUM_ELEMENTS_SHOWN);
     
     setDropDownItems(items);
