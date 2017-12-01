@@ -4,39 +4,44 @@ import g4p_controls.*; //GUI lib import
 DropDownMenu veiDropDown;
 DropDownMenu yearDropDown;
 
+boolean highlight;
+
 Table table;
 PImage earth;
-//ArrayList<Volcano> volcanos = new ArrayList<Volcano>(); //Might want to maket this a HashMap
 public static HashMap<String, Volcano> volcanoMap = new HashMap<String, Volcano>();
 HashMap<String, ArrayList<V_Eruption>> eruptionYears = new HashMap<String, ArrayList<V_Eruption>>();
 HashMap<String, ArrayList<V_Eruption>> eruptionVEI = new HashMap<String, ArrayList<V_Eruption>>();
+ArrayList<V_Eruption> hlEruptions = new ArrayList<V_Eruption>();
 
-//Volcano phoenix = new Volcano(33.44, -112.07, "Phoenix");
 
 void setup() {
   size(800, 800, P2D);
   pixelDensity(displayDensity());
   earth = loadImage("Earth.png");
   loadData();
-  
+  highlight = false;
   veiDropDown = new DropDownMenu(this, "vei", new ArrayList<String>(eruptionVEI.keySet()));
   //yearDropDown = new DropDownMenu(this, "year", new ArrayList<String>(eruptionYears.keySet()));
 }
 
 void draw() {
-  //Volcano phoenix = new Volcano(33.44, -112.07, "Phoenix");
-  //background(255);
   image(earth, 0, 0, width, height/2);
   for(String i: eruptionVEI.keySet()) {
    ArrayList<V_Eruption> vol = eruptionVEI.get(i);
    for(V_Eruption e: vol){
-     e.display();
+     if(highlight) {
+       if(e.isHighlighted()) {
+         fill(255, e.calcGreen(), 0);
+       } else {
+         fill(0, 0, 0, 25);
+       }
+       e.display();
+     } else {
+       fill(255, e.calcGreen(), 0);
+       e.display();
+     }
     }
   }
-  //The lat/lng conversion before we start working on drawing eruptions
-  fill(0, 255, 0);
-  //triangle(phoenix.x - 15, phoenix.y - 15, phoenix.x, phoenix.y, phoenix.x + 15, phoenix.y + 15);
-  //phoenix.display();
   
   //Dropdown testing MOVE OUT OF DRAW NO MORE MEMORY!!!
   //yearDlist = new GDropList(this, width-100, height/2, 100, 100);
@@ -64,6 +69,32 @@ void mouseMoved() {
        e.rollOver(mouseX, mouseY);
      }
    }
+  }
+}
+
+void mousePressed() {
+   if(mouseY <= height/2) {
+   for(String i: eruptionVEI.keySet()) {
+     ArrayList<V_Eruption> vol = eruptionVEI.get(i);
+     for(V_Eruption e: vol){
+       if(e.isOver()) {
+         highlight = true;
+         e.setHighlighted();
+         hlEruptions.add(e); //depending on how we decide to do this, might need to
+         //toggle adding and removing e
+       }
+     }
+   }
+  }
+}
+
+void keyPressed() {
+  if(key == 'c') {
+    for(V_Eruption e: hlEruptions) {
+      e.setHighlighted();
+    }
+    hlEruptions.clear();
+    highlight = false;
   }
 }
 

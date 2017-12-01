@@ -21,9 +21,6 @@ class Volcano {
     return this.y;
   }
   void display(){
-    //stroke(0);
-    //strokeWeight(2);
-    //fill(255, 0, 0);
     triangle(x - 7, y + 7, x, y, x + 7, y + 7);
   }
 }

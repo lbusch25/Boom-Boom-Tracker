@@ -2,6 +2,7 @@ class V_Eruption {
   int day, month, year, VEI;
   String name;
   boolean over;
+  boolean highlighted;
   
   V_Eruption(int tempD, int tempM, int tempY, int tempV, String n) {
     day = tempD;
@@ -9,6 +10,7 @@ class V_Eruption {
     year = tempY;
     VEI = tempV;
     name = n;
+    highlighted = false;
   }
   
   void rollOver(int mX, int mY) {
@@ -26,7 +28,19 @@ class V_Eruption {
     return (int) redVal;
   }
   
-    int calcGreen() {
+  boolean isOver() {
+    return over;
+  }
+  
+  boolean isHighlighted() {
+    return highlighted;
+  }
+  
+  void setHighlighted() {
+    highlighted = !highlighted;
+  }
+  
+  int calcGreen() {
     float greenVal = map(VEI, 0, 7, 255, 0);
     return (int) greenVal;
   }
@@ -47,10 +61,15 @@ class V_Eruption {
     stroke(0);
     if(over) {
       fill(255, 255, 255);
-      Volcano_Vis.volcanoMap.get(this.name).display();
-    } else {
-      fill(255, this.calcGreen(), 0);
-      Volcano_Vis.volcanoMap.get(this.name).display();
     }
+    //  Volcano_Vis.volcanoMap.get(this.name).display();
+    //} else if (highlighted) {
+    //  fill(255, 255, 255);
+    //  Volcano_Vis.volcanoMap.get(this.name).display();
+    //} else {
+    //  fill(255, this.calcGreen(), 0);
+    //  Volcano_Vis.volcanoMap.get(this.name).display();
+    //}
+    Volcano_Vis.volcanoMap.get(this.name).display();
   }
 }
