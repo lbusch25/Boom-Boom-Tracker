@@ -9,9 +9,11 @@ boolean highlight;
 boolean showAll;
 PFont font;
 
+int startX;
+int startY;
+
 Table table;
 PImage earth;
-public static HashMap<String, Volcano> volcanoMap = new HashMap<String, Volcano>();
 HashMap<String, ArrayList<V_Eruption>> eruptionYears = new HashMap<String, ArrayList<V_Eruption>>();
 HashMap<String, ArrayList<V_Eruption>> eruptionVEI = new HashMap<String, ArrayList<V_Eruption>>();
 ArrayList<V_Eruption> hlEruptions = new ArrayList<V_Eruption>();
@@ -79,23 +81,31 @@ void mouseMoved() {
 }
 
 void mousePressed() {
+   startX = mouseX;
+   startY = mouseY;
    if(mouseY <= height/2) {
-   for(String i: eruptionVEI.keySet()) {
-     ArrayList<V_Eruption> vol = eruptionVEI.get(i);
-     for(V_Eruption e: vol){
-       if(e.isOver()) {
-         highlight = true;
-         e.setHighlighted();
-         hlEruptions.add(e); //depending on how we decide to do this, might need to
-         //toggle adding and removing e
+     for(String i: eruptionVEI.keySet()) {
+       ArrayList<V_Eruption> vol = eruptionVEI.get(i);
+       for(V_Eruption e: vol){
+         if(e.isOver()) {
+           highlight = true;
+           e.setHighlighted();
+           hlEruptions.add(e); //depending on how we decide to do this, might need to
+           //toggle adding and removing e
+         }
        }
      }
    }
-  }
 }
 
 void mouseDragged() {
   
+}
+
+void mouseReleased() {
+  if(mouseY <= height/2) {
+    highlightMapArea();
+  }
 }
 
 void keyPressed() {
@@ -108,6 +118,66 @@ void keyPressed() {
   }
 }
 
+void highlightMapArea() {
+  if(mouseX < startX) {
+      if(mouseY < startY) {
+       for(String i: eruptionVEI.keySet()) {
+         ArrayList<V_Eruption> vol = eruptionVEI.get(i);
+         for(V_Eruption e: vol){
+           if((e.x >= mouseX && e.x <= startX) && (e.y <= startY && e.y >= mouseY)) {
+             if(!e.isHighlighted()) {
+               highlight = true;
+               e.setHighlighted();
+               hlEruptions.add(e);
+             }
+           }
+         }
+       }
+      } else if (mouseY > startY) {
+        for(String i: eruptionVEI.keySet()) {
+         ArrayList<V_Eruption> vol = eruptionVEI.get(i);
+         for(V_Eruption e: vol){
+           if((e.x >= mouseX && e.x <= startX) && (e.y >= startY && e.y <= mouseY)) {
+             if(!e.isHighlighted()) {
+               highlight = true;
+               e.setHighlighted();
+               hlEruptions.add(e);
+             }
+           }
+         }
+       }
+      }
+    } else if (mouseX > startX) {
+      if(mouseY < startY) {
+       for(String i: eruptionVEI.keySet()) {
+         ArrayList<V_Eruption> vol = eruptionVEI.get(i);
+         for(V_Eruption e: vol){
+           if((e.x <= mouseX && e.x >= startX) && (e.y <= startY && e.y >= mouseY)) {
+             if(!e.isHighlighted()) {
+               highlight = true;
+               e.setHighlighted();
+               hlEruptions.add(e);
+             }
+           }
+         }
+       }
+      } else if (mouseY > startY) {
+        for(String i: eruptionVEI.keySet()) {
+         ArrayList<V_Eruption> vol = eruptionVEI.get(i);
+         for(V_Eruption e: vol){
+           if((e.x <= mouseX && e.x >= startX) && (e.y >= startY && e.y <= mouseY)) {
+             if(!e.isHighlighted()) {
+               highlight = true;
+               e.setHighlighted();
+               hlEruptions.add(e);
+             }
+           }
+         }
+       }
+      }
+    }
+}
+
 void loadData() {
   table = loadTable("GVP_Eruption_Results.csv", "header");
   for(int i = 0; i < table.getRowCount(); i++){
@@ -117,10 +187,9 @@ void loadData() {
       int day = row.getInt("Start Day");
       int vei = row.getInt("VEI");
       String name = row.getString("Volcano Name");
-      V_Eruption e = new V_Eruption(day, month, year, vei, name);
       float lat = row.getFloat("Latitude");
       float lng = row.getFloat("Longitude");
-      Volcano v = new Volcano(lat, lng, name);
+      V_Eruption e = new V_Eruption(day, month, year, vei, name, lat, lng);
       if(eruptionYears.containsKey(str(year))){ //Add eruption to the year arrayList
         eruptionYears.get(str(year)).add(e);
       }
@@ -137,9 +206,6 @@ void loadData() {
           erupt.add(e);
           eruptionVEI.put(str(vei), erupt);
         }
-    if (!volcanoMap.containsKey(name)) { //If volcano not tracked, add it to the volcanoMap
-      volcanoMap.put(name, v);
-    }
   }
 }
 
