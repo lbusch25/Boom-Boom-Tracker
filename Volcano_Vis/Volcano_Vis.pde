@@ -3,6 +3,8 @@ import g4p_controls.*; //GUI lib import
 //GDropList yearDlist; //For GUI
 DropDownMenu veiDropDown;
 DropDownMenu yearDropDown;
+TableReader eruptionData;
+ParallelPlot eruptionPlot;
 
 boolean highlight;
 boolean drawRect;
@@ -30,11 +32,13 @@ void setup() {
   veiDropDown = new DropDownMenu(this, "vei", new ArrayList<String>(eruptionVEI.keySet()));
   //yearDropDown = new DropDownMenu(this, "year", new ArrayList<String>(eruptionYears.keySet()));
   
+  eruptionPlot = new ParallelPlot(eruptionData);
   font = createFont("Arial", 16);
   showAll = true;
 }
 
 void draw() {
+  background(255, 255, 255);
   image(earth, 0, 0, width, height/2);
   for(String i: eruptionVEI.keySet()) {
    ArrayList<V_Eruption> vol = eruptionVEI.get(i);
@@ -75,6 +79,7 @@ void draw() {
   //yearDlist.setItems(list, -1);
   //yearDlist.draw();
   veiDropDown.draw();
+  eruptionPlot.draw();
   
   
 }
@@ -87,6 +92,8 @@ void mouseMoved() {
        e.rollOver(mouseX, mouseY);
      }
    }
+  } else if (mouseY > height/2) {
+    eruptionPlot.mouseMoved();
   }
 }
 
@@ -105,18 +112,28 @@ void mousePressed() {
          }
        }
      }
+     drawRect = true;
+   } else if (mouseY > height/2) {
+     eruptionPlot.mousePressed();
    }
-   drawRect = true;
 }
 
 void mouseReleased() {
   if(mouseY <= height/2) {
     highlightMapArea();
+  } else if (mouseY > height/2) {
+    eruptionPlot.mouseReleased();
   }
   drawRect = false;
 }
 
-void keyPressed() {
+void mouseDragged() {
+  if (mouseY > height/2) {
+    eruptionPlot.mouseDragged();
+  }
+}
+
+void keyPressed() { //Add in parallel plot keypressed
   if(key == 'c') {
     for(V_Eruption e: hlEruptions) {
       e.setHighlighted();
@@ -216,6 +233,8 @@ void loadData() {
           eruptionVEI.put(str(vei), erupt);
         }
   }
+  
+  eruptionData = new TableReader("GVP_Eruption_Results.csv");
 }
 
 // created for dropDown might want to make a new class for the dropdowns we want to use

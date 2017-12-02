@@ -1,9 +1,9 @@
 class Column {
   
-  public static final int COLUMN_HEIGHT = 400;
-  public static final int ATT_LABEL_HEIGHT = COLUMN_HEIGHT + 50;
-  public static final int MAX_LABEL_HEIGHT = COLUMN_HEIGHT + 20;
-  public static final int MIN_LABEL_HEIGHT = 15;
+  int COLUMN_HEIGHT = height - 6*height/10;
+  int ATT_LABEL_HEIGHT = COLUMN_HEIGHT + 50;
+  int MAX_LABEL_HEIGHT = COLUMN_HEIGHT + 20;
+  public static final int MIN_LABEL_HEIGHT = 10;
   
   int x, y;
   String attName;

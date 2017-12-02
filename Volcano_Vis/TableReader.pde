@@ -39,7 +39,7 @@ class TableReader{
     for(int i = 1; i < numColumns; i++) {
         Column c = new Column(columnNames[i]);
         c.setX(i*width/numColumns);
-        c.setY(500);
+        c.setY(height - height/10);
         c.setMax(0);
         c.setMin(100000);
         columns.add(c);

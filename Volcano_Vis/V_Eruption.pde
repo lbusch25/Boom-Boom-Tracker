@@ -1,28 +1,38 @@
 class V_Eruption {
-  //int day, month, year, VEI;
+  
   float x, y;
   int eruptionNum, VEI;
-  //String name;
+  
   boolean over;
   boolean highlighted;
   
-  //V_Eruption(int tempD, int tempM, int tempY, int tempV, String n, float latitude, float longitude) {
-  //  day = tempD;
-  //  month = tempM;
-  //  year = tempY;
-  //  VEI = tempV;
-  //  name = n;
-  //  x = map(longitude, -180, 180, 0, width);
-  //  y = map(latitude, 90, -90, 0, height/2);
-  //  highlighted = false;
-  //}
+  Item item;
+  
+  //HashMap<String, Float> attributes;
   
   V_Eruption(int num, int vei, float latitude, float longitude) {
     eruptionNum = num;
     VEI = vei;
     x = map(longitude, -180, 180, 0, width);
     y = map(latitude, 90, -90, 0, height/2);
+    
     highlighted = false;
+    //attributes = new HashMap<String, Float>();
+    //attributes.put("lat", latitude);
+    //attributes.put("long", longitude);
+    //attributes.put("VEI", (float) VEI);
+  }
+  
+  //void addAttribute(String s, Float f) {
+  //  attributes.put(s, f);
+  //}
+  
+  //float getAttribute(String s) {
+  //  return attributes.get(s);
+  //}
+  
+  void setItem(Item i) {
+    this.item = i;
   }
   
   void rollOver(int mX, int mY) {
