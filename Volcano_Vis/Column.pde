@@ -1,6 +1,6 @@
 class Column {
   
-  int COLUMN_HEIGHT = height - 6*height/10;
+  int COLUMN_HEIGHT = height/4;
   int ATT_LABEL_HEIGHT = COLUMN_HEIGHT + 50;
   int MAX_LABEL_HEIGHT = COLUMN_HEIGHT + 20;
   public static final int MIN_LABEL_HEIGHT = 10;
@@ -26,8 +26,8 @@ class Column {
   }
   
   void rollOver(int mx, int my) {
-    if(y - ATT_LABEL_HEIGHT + 50 >= my && my >= y - ATT_LABEL_HEIGHT - 50 
-        && x + deltaX - 50 <= mx && mx <= x + deltaX +50) {
+    if(y - ATT_LABEL_HEIGHT + 25 >= my && my >= y - ATT_LABEL_HEIGHT - 25 
+        && x + deltaX - 25 <= mx && mx <= x + deltaX +25) {
           over = true;
         } else {
           over = false;

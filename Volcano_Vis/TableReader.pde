@@ -51,7 +51,13 @@ class TableReader{
     TableRow row; 
     for (int i = 0;i<numRows;i++){
       row = dataTable.getRow(i); 
-      Item item = new Item(row.getString(columnNames[0]));
+      String ident = row.getString(columnNames[0]);
+      Item item = new Item(ident);
+      //V_Eruption e = identMap.get(ident); //Might need to change this
+      V_Eruption e = eruptions[i];
+      e.setItem(item);
+      item.setEruption(e);
+      //identMap.replace(ident, e);
       for(int j = 1; j < numColumns; j++) {
         if(row.getFloat(j) > columns.get(j-1).attMax) {
           columns.get(j-1).setMax(row.getFloat(j)); //cast int

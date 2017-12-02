@@ -3,6 +3,8 @@ class Item {
   String identifier;
   HashMap<String, Float> attributes;
   
+  V_Eruption eruption;
+  
   boolean highlighted;
   
   Item(String ident) {
@@ -16,6 +18,11 @@ class Item {
   
   void setHighlighted() {
     highlighted = !highlighted;
+    eruption.highlighted = !eruption.highlighted;
+  }
+  
+  void setEruption(V_Eruption e) {
+    this.eruption = e;
   }
   
   float getAttribute(String s) {

@@ -82,7 +82,7 @@ class ParallelPlot{
   void mouseReleased() {
     for(int i = 0; i < activeTable.columns.size(); i++) {
       Column c = activeTable.columns.get(i);
-      if (c.over && c.deltaX > 50) {
+      if (c.over && c.deltaX > 25) {
           if(i + 1 < activeTable.columns.size()) {
             Column s = activeTable.columns.get(i+1);
             c.setX(s.getPosX());
@@ -92,7 +92,7 @@ class ParallelPlot{
             activeTable.columns.set(i+1, c);
           }
       } 
-        if (c.over && c.deltaX < -50) {
+        if (c.over && c.deltaX < -25) {
           if(i - 1 >= 0) {
             Column s = activeTable.columns.get(i - 1);
             c.setX(s.getPosX());
@@ -109,7 +109,9 @@ class ParallelPlot{
             float yVal = c.convertY(val);
             if((yVal >= startY && yVal <= mouseY) || (yVal <= startY && yVal >= mouseY)) {
               item.setHighlighted();
+              hlEruptions.add(item.eruption);  //Volcano_Vis
               columnIsHighlighted = true;
+              highlight = true; //Volcano_Vis
             }
           }
       }
@@ -119,7 +121,7 @@ class ParallelPlot{
   void mouseDragged() {
     for(int i = 0; i < activeTable.columns.size(); i++) {
       Column c = activeTable.columns.get(i);
-      if(c.over && c.deltaX >= -50 && c.deltaX <= 50) {
+      if(c.over && c.deltaX >= -25 && c.deltaX <= 25) {
         c.setDX(mouseX);
         }
       } 

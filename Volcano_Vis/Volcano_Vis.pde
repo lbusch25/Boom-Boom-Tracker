@@ -15,10 +15,13 @@ PFont font;
 int startX;
 int startY;
 
+V_Eruption[] eruptions;
+
 Table table;
 PImage earth;
 HashMap<String, ArrayList<V_Eruption>> eruptionYears = new HashMap<String, ArrayList<V_Eruption>>();
 HashMap<String, ArrayList<V_Eruption>> eruptionVEI = new HashMap<String, ArrayList<V_Eruption>>();
+//HashMap<String, V_Eruption> identMap = new HashMap<String, V_Eruption>();
 ArrayList<V_Eruption> hlEruptions = new ArrayList<V_Eruption>();
 
 
@@ -33,7 +36,7 @@ void setup() {
   //yearDropDown = new DropDownMenu(this, "year", new ArrayList<String>(eruptionYears.keySet()));
   
   eruptionPlot = new ParallelPlot(eruptionData);
-  font = createFont("Arial", 16);
+  font = createFont("Arial", 12);
   showAll = true;
 }
 
@@ -46,10 +49,11 @@ void draw() {
      if(highlight) {
        if(e.isHighlighted()) {
          fill(255, e.calcGreen(), 0);
-       } else {
+         e.display();
+       } else if (showAll) {
          fill(0, 0, 0, 25);
+         e.display();
        }
-       e.display();
      } else {
        fill(255, e.calcGreen(), 0);
        e.display();
@@ -140,6 +144,10 @@ void keyPressed() { //Add in parallel plot keypressed
     }
     hlEruptions.clear();
     highlight = false;
+    showAll = true;
+    eruptionPlot.columnIsHighlighted = false;
+  } if(key == ' ') {
+    showAll = !showAll;
   }
 }
 
@@ -205,6 +213,7 @@ void highlightMapArea() {
 
 void loadData() {
   table = loadTable("GVP_Eruption_Results.csv", "header");
+  eruptions = new V_Eruption[table.getRowCount()];
   for(int i = 0; i < table.getRowCount(); i++){
     TableRow row = table.getRow(i);
       int year = row.getInt("Start Year");
@@ -216,6 +225,8 @@ void loadData() {
       float lng = row.getFloat("Longitude");
       int number = row.getInt("Volcano Number");
       V_Eruption e = new V_Eruption(number, vei, lat, lng);
+      //identMap.put(str(number), e);
+      eruptions[i] = e;
       if(eruptionYears.containsKey(str(year))){ //Add eruption to the year arrayList
         eruptionYears.get(str(year)).add(e);
       }
