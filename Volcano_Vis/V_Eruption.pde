@@ -1,16 +1,25 @@
 class V_Eruption {
-  int day, month, year, VEI;
+  //int day, month, year, VEI;
   float x, y;
-  String name;
+  int eruptionNum, VEI;
+  //String name;
   boolean over;
   boolean highlighted;
   
-  V_Eruption(int tempD, int tempM, int tempY, int tempV, String n, float latitude, float longitude) {
-    day = tempD;
-    month = tempM;
-    year = tempY;
-    VEI = tempV;
-    name = n;
+  //V_Eruption(int tempD, int tempM, int tempY, int tempV, String n, float latitude, float longitude) {
+  //  day = tempD;
+  //  month = tempM;
+  //  year = tempY;
+  //  VEI = tempV;
+  //  name = n;
+  //  x = map(longitude, -180, 180, 0, width);
+  //  y = map(latitude, 90, -90, 0, height/2);
+  //  highlighted = false;
+  //}
+  
+  V_Eruption(int num, int vei, float latitude, float longitude) {
+    eruptionNum = num;
+    VEI = vei;
     x = map(longitude, -180, 180, 0, width);
     y = map(latitude, 90, -90, 0, height/2);
     highlighted = false;
@@ -43,22 +52,10 @@ class V_Eruption {
     return (int) greenVal;
   }
   
-  //String getName() {
-  //  return name;
-  //}
-  
-  //int getYear() {
-  //  return year;
-  //}
-  
-  //int getVEI() {
-  //  return VEI;
-  //}
-  
   void display() {
     stroke(0);
     if(over) {
-      fill(255, 255, 255);
+      fill(135, 206, 235);
     }
     triangle(x - 7, y + 7, x, y, x + 7, y + 7);
   }

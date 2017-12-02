@@ -5,6 +5,7 @@ DropDownMenu veiDropDown;
 DropDownMenu yearDropDown;
 
 boolean highlight;
+boolean drawRect;
 
 boolean showAll;
 PFont font;
@@ -20,11 +21,12 @@ ArrayList<V_Eruption> hlEruptions = new ArrayList<V_Eruption>();
 
 
 void setup() {
-  size(800, 800, P2D);
+  size(1200, 800, P2D);
   pixelDensity(displayDensity());
   earth = loadImage("Earth.png");
   loadData();
   highlight = false;
+  drawRect = false;
   veiDropDown = new DropDownMenu(this, "vei", new ArrayList<String>(eruptionVEI.keySet()));
   //yearDropDown = new DropDownMenu(this, "year", new ArrayList<String>(eruptionYears.keySet()));
   
@@ -49,6 +51,14 @@ void draw() {
        e.display();
      }
     }
+  }
+  
+  if(drawRect) {
+    noFill();
+    stroke(135, 206, 235);
+    strokeWeight(1.5);
+    rect(startX, startY, mouseX - startX, mouseY - startY);
+    strokeWeight(1.0);
   }
   
   //Dropdown testing MOVE OUT OF DRAW NO MORE MEMORY!!!
@@ -96,16 +106,14 @@ void mousePressed() {
        }
      }
    }
-}
-
-void mouseDragged() {
-  
+   drawRect = true;
 }
 
 void mouseReleased() {
   if(mouseY <= height/2) {
     highlightMapArea();
   }
+  drawRect = false;
 }
 
 void keyPressed() {
@@ -183,13 +191,14 @@ void loadData() {
   for(int i = 0; i < table.getRowCount(); i++){
     TableRow row = table.getRow(i);
       int year = row.getInt("Start Year");
-      int month = row.getInt("Start Month");
-      int day = row.getInt("Start Day");
+      //int month = row.getInt("Start Month");
+      //int day = row.getInt("Start Day");
       int vei = row.getInt("VEI");
-      String name = row.getString("Volcano Name");
+      //String name = row.getString("Volcano Name");
       float lat = row.getFloat("Latitude");
       float lng = row.getFloat("Longitude");
-      V_Eruption e = new V_Eruption(day, month, year, vei, name, lat, lng);
+      int number = row.getInt("Volcano Number");
+      V_Eruption e = new V_Eruption(number, vei, lat, lng);
       if(eruptionYears.containsKey(str(year))){ //Add eruption to the year arrayList
         eruptionYears.get(str(year)).add(e);
       }
