@@ -88,6 +88,10 @@ void mousePressed() {
   }
 }
 
+void mouseDragged() {
+  
+}
+
 void keyPressed() {
   if(key == 'c') {
     for(V_Eruption e: hlEruptions) {
