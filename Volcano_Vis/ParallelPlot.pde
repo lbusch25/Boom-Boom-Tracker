@@ -1,26 +1,22 @@
 class ParallelPlot{
-
-  
   TableReader activeTable;
+  TableReader carData;
+  TableReader cameraData;
+  TableReader foodData;
   
   int startX, startY;
-  
   
   
   boolean columnIsHighlighted;
   
   Item items[];
   
-  ParallelPlot (int x, int y){
-    
-    
-  }
-  
   //void setup() {
   //  size(1200, 600, P2D); //Need P2D in here cause its so much faster, but font messed up
   //  pixelDensity(displayDensity());
   //  loadData();
-    
+  //  font = createFont("Arial", 16);
+  //  showAll = true;
   //} 
   
   
@@ -125,27 +121,27 @@ class ParallelPlot{
       } 
   }
   
-  //void keyPressed() {
-  //  if(key == ' ') {
-  //    showAll = !showAll;
-  //  } if (key == 'a') {
-  //    activeTable = carData;
-  //    columnIsHighlighted = false;
-  //  } if(key == 'c') {
-  //    activeTable = cameraData;
-  //    columnIsHighlighted = false;
-  //  } if(key == 'f') {
-  //    activeTable = foodData; //Not fully read in properly
-  //    columnIsHighlighted = false;
-  //  }
-  //}
+  void keyPressed() {
+    if(key == ' ') {
+      showAll = !showAll;
+    } if (key == 'a') {
+      activeTable = carData;
+      columnIsHighlighted = false;
+    } if(key == 'c') {
+      activeTable = cameraData;
+      columnIsHighlighted = false;
+    } if(key == 'f') {
+      activeTable = foodData; //Not fully read in properly
+      columnIsHighlighted = false;
+    }
+  }
   
-  //void loadData() {
+  void loadData() {
     
-  //  carData = new TableReader("cars-cleaned.tsv"); //Works
-  //  cameraData = new TableReader("cameras-cleaned.tsv"); //Works
-  //  foodData = new TableReader("nutrients-cleaned.tsv"); //Not fully working for foodData
+    carData = new TableReader("cars-cleaned.tsv"); //Works
+    cameraData = new TableReader("cameras-cleaned.tsv"); //Works
+    foodData = new TableReader("nutrients-cleaned.tsv"); //Not fully working for foodData
     
-  //  activeTable = carData;
-  //}
+    activeTable = carData;
+  }
 }
