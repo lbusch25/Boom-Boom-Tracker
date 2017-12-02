@@ -6,6 +6,9 @@ DropDownMenu yearDropDown;
 
 boolean highlight;
 
+boolean showAll;
+PFont font;
+
 Table table;
 PImage earth;
 public static HashMap<String, Volcano> volcanoMap = new HashMap<String, Volcano>();
@@ -22,6 +25,9 @@ void setup() {
   highlight = false;
   veiDropDown = new DropDownMenu(this, "vei", new ArrayList<String>(eruptionVEI.keySet()));
   //yearDropDown = new DropDownMenu(this, "year", new ArrayList<String>(eruptionYears.keySet()));
+  
+  font = createFont("Arial", 16);
+  showAll = true;
 }
 
 void draw() {
