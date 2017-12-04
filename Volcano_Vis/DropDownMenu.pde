@@ -6,12 +6,15 @@ class DropDownMenu{
   GDropList dropDown;
   String type;
   PApplet canvas;
+  int x, y;
   
-  DropDownMenu(PApplet canvasT, String typeT, ArrayList<String> items){
+  DropDownMenu(PApplet canvasT, String typeT, ArrayList<String> items, int tempX, int tempY){
+    x = tempX;
+    y = tempY;
     canvas = canvasT;
     type = typeT;
 
-    dropDown = new GDropList(canvas, canvas.width-100, canvas.height/2, 100, 100, NUM_ELEMENTS_SHOWN);
+    dropDown = new GDropList(canvas, x, y, 100, 100, NUM_ELEMENTS_SHOWN);
     
     setDropDownItems(items);
   }

@@ -32,7 +32,7 @@ void setup() {
   loadData();
   highlight = false;
   drawRect = false;
-  veiDropDown = new DropDownMenu(this, "vei", new ArrayList<String>(eruptionVEI.keySet()));
+  veiDropDown = new DropDownMenu(this, "vei", new ArrayList<String>(eruptionVEI.keySet()),width-100,height/2);
   //yearDropDown = new DropDownMenu(this, "year", new ArrayList<String>(eruptionYears.keySet()));
   
   eruptionPlot = new ParallelPlot(eruptionData);
