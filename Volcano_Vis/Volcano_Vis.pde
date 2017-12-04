@@ -21,7 +21,6 @@ Table table;
 PImage earth;
 HashMap<String, ArrayList<V_Eruption>> eruptionYears = new HashMap<String, ArrayList<V_Eruption>>();
 HashMap<String, ArrayList<V_Eruption>> eruptionVEI = new HashMap<String, ArrayList<V_Eruption>>();
-//HashMap<String, V_Eruption> identMap = new HashMap<String, V_Eruption>();
 ArrayList<V_Eruption> hlEruptions = new ArrayList<V_Eruption>();
 
 
@@ -122,6 +121,12 @@ void mousePressed() {
    }
 }
 
+void mouseDragged() {
+  if (mouseY > height/2) {
+    eruptionPlot.mouseDragged();
+  }
+}
+
 void mouseReleased() {
   if(mouseY <= height/2) {
     highlightMapArea();
@@ -129,12 +134,6 @@ void mouseReleased() {
     eruptionPlot.mouseReleased();
   }
   drawRect = false;
-}
-
-void mouseDragged() {
-  if (mouseY > height/2) {
-    eruptionPlot.mouseDragged();
-  }
 }
 
 void keyPressed() { //Add in parallel plot keypressed
@@ -145,7 +144,6 @@ void keyPressed() { //Add in parallel plot keypressed
     hlEruptions.clear();
     highlight = false;
     showAll = true;
-    eruptionPlot.columnIsHighlighted = false;
   } if(key == ' ') {
     showAll = !showAll;
   }
@@ -212,7 +210,7 @@ void highlightMapArea() {
 }
 
 void loadData() {
-  table = loadTable("GVP_Eruption_Results.csv", "header");
+  table = loadTable("Eruption_Emission_Merged.csv", "header");
   eruptions = new V_Eruption[table.getRowCount()];
   for(int i = 0; i < table.getRowCount(); i++){
     TableRow row = table.getRow(i);
@@ -225,7 +223,6 @@ void loadData() {
       float lng = row.getFloat("Longitude");
       int number = row.getInt("Volcano Number");
       V_Eruption e = new V_Eruption(number, vei, lat, lng);
-      //identMap.put(str(number), e);
       eruptions[i] = e;
       if(eruptionYears.containsKey(str(year))){ //Add eruption to the year arrayList
         eruptionYears.get(str(year)).add(e);
@@ -245,7 +242,7 @@ void loadData() {
         }
   }
   
-  eruptionData = new TableReader("GVP_Eruption_Results.csv");
+  eruptionData = new TableReader("Eruption_Emission_Merged.csv");
 }
 
 // created for dropDown might want to make a new class for the dropdowns we want to use
