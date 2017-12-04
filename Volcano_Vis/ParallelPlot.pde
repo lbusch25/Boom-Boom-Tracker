@@ -47,7 +47,7 @@ class ParallelPlot{
   }
   
   void mousePressed() {
-    columnIsHighlighted = false;
+    //columnIsHighlighted = false;
     startX = mouseX;
     startY = mouseY;
     for(Column c: activeTable.columns) {
@@ -91,6 +91,7 @@ class ParallelPlot{
        }
        
         if(c.highlight) {
+          clearData(); //clears array of highlighted data
           for(Item item: activeTable.items){
             float val = item.getAttribute(c.attName);
             float yVal = c.convertY(val);
@@ -99,6 +100,8 @@ class ParallelPlot{
               hlEruptions.add(item.eruption);  //Volcano_Vis
               columnIsHighlighted = true;
               highlight = true; //Volcano_Vis
+            } else {
+              item.highlighted = false; //Prevents double highlighting on same column
             }
           }
       }
