@@ -1,23 +1,10 @@
 class ParallelPlot{
   TableReader activeTable;
-  //TableReader carData;
-  //TableReader cameraData;
-  //TableReader foodData;
   
   int startX, startY;
   
   
   boolean columnIsHighlighted;
-  
-  //Item items[];
-  
-  //void setup() {
-  //  size(1200, 600, P2D); //Need P2D in here cause its so much faster, but font messed up
-  //  pixelDensity(displayDensity());
-  //  loadData();
-  //  font = createFont("Arial", 16);
-  //  showAll = true;
-  //} 
   
   ParallelPlot(TableReader tr) {
     activeTable = tr;
@@ -25,7 +12,7 @@ class ParallelPlot{
   
   
   void draw() {
-    //background(255);
+    columnIsHighlighted = highlight;
     for(Column c: activeTable.columns) {
       c.draw();
     } 
@@ -132,13 +119,4 @@ class ParallelPlot{
       showAll = !showAll;
     }
   }
-  
-  //void loadData() {
-    
-  //  carData = new TableReader("cars-cleaned.tsv"); //Works
-  //  cameraData = new TableReader("cameras-cleaned.tsv"); //Works
-  //  foodData = new TableReader("nutrients-cleaned.tsv"); //Not fully working for foodData
-    
-  //  activeTable = carData;
-  //}
 }
