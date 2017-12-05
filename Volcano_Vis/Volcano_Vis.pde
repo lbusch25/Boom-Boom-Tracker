@@ -144,15 +144,20 @@ void mouseReleased() {
 
 void keyPressed() { //Add in parallel plot keypressed
   if(key == 'c') {
+    clearData();
+  } if(key == ' ') {
+    showAll = !showAll;
+  }
+}
+
+void clearData() {
     for(V_Eruption e: hlEruptions) {
       e.setHighlighted();
     }
     hlEruptions.clear();
     highlight = false;
     showAll = true;
-  } if(key == ' ') {
-    showAll = !showAll;
-  }
+    eruptionPlot.columnIsHighlighted = false;
 }
 
 void highlightMapArea() {

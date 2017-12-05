@@ -55,7 +55,7 @@ class V_Eruption {
   
   void setHighlighted() {
     highlighted = !highlighted;
-    item.highlighted = !item.highlighted;
+    item.highlighted = this.highlighted;
   }
   
   int calcGreen() {
