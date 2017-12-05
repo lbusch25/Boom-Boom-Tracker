@@ -23,7 +23,7 @@ class TableReader{
     columns = new ArrayList<Column>();
     
     numRows = dataTable.getRowCount();
-    numColumns = dataTable.getColumnCount();
+    numColumns = dataTable.getColumnCount()-3;
     
     loadColumns(); //updates columnName array with columns from data
     loadItems(); //updates item array with each items row information
@@ -36,7 +36,7 @@ class TableReader{
   /*inputs the column names read from the dataTable*/
   void loadColumns(){
     columnNames = dataTable.getRow(0).getColumnTitles();
-    for(int i = 1; i < numColumns; i++) {
+    for(int i = 0; i < numColumns; i++) {
         Column c = new Column(columnNames[i]);
         c.setX(i*width/numColumns);
         c.setY(height - height/10);
@@ -51,20 +51,20 @@ class TableReader{
     TableRow row; 
     for (int i = 0;i<numRows;i++){
       row = dataTable.getRow(i); 
-      String ident = row.getString(columnNames[0]);
+      String ident = row.getString("Eruption Number");
       Item item = new Item(ident);
       //V_Eruption e = identMap.get(ident); //Might need to change this
       V_Eruption e = eruptions[i];
       e.setItem(item);
       item.setEruption(e);
       //identMap.replace(ident, e);
-      for(int j = 1; j < numColumns; j++) {
-        if(row.getFloat(j) > columns.get(j-1).attMax) {
-          columns.get(j-1).setMax(row.getFloat(j)); //cast int
-        } if(row.getFloat(j) < columns.get(j-1).attMin) {
-          columns.get(j-1).setMin(row.getFloat(j)); //cast int
+      for(int j = 0; j < numColumns; j++) {
+        if(row.getFloat(j) > columns.get(j).attMax) {
+          columns.get(j).setMax(row.getFloat(j)); //cast int
+        } if(row.getFloat(j) < columns.get(j).attMin) {
+          columns.get(j).setMin(row.getFloat(j)); //cast int
         }
-        item.addAttribute(columns.get(j-1).attName, row.getFloat(j));
+        item.addAttribute(columns.get(j).attName, row.getFloat(j));
       }
       items[i] = item;
   
