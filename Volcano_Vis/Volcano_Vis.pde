@@ -12,6 +12,7 @@ ParallelPlot eruptionPlot;
 
 boolean highlight;
 boolean drawRect;
+boolean selection;
 
 boolean showAll;
 PFont font;
@@ -43,26 +44,61 @@ void setup() {
   eruptionPlot = new ParallelPlot(eruptionData);
   font = createFont("Arial", 12);
   showAll = true;
+  selection = false;
 }
 
 void draw() {
   background(255, 255, 255);
   image(earth, 0, 0, width, height/2);
-  for(String i: eruptionVEI.keySet()) {
-   ArrayList<V_Eruption> vol = eruptionVEI.get(i);
-   for(V_Eruption e: vol){
-     if(highlight) {
-       if(e.isHighlighted()) {
-         fill(255, e.calcGreen(), 0);
-         e.display();
-       } else if (showAll) {
-         fill(0, 0, 0, 25);
+  createSelectedArray();
+  if(!selection) {
+    for(String i: eruptionVEI.keySet()) {
+     ArrayList<V_Eruption> vol = eruptionVEI.get(i);
+     for(V_Eruption e: vol){
+       if(highlight) {
+         if(e.isHighlighted()) {
+           if(e.VEI >= 0) {
+             fill(255, e.calcGreen(), 0);
+           } else {
+             fill(0, 255, 0);
+           }
+           e.display();
+         } else if (showAll) {
+           fill(0, 0, 0, 25);
+           e.display();
+         }
+       } else {
+         if(e.VEI >= 0) {
+             fill(255, e.calcGreen(), 0);
+           } else {
+             fill(0, 255, 0);
+           }
          e.display();
        }
-     } else {
-       fill(255, e.calcGreen(), 0);
-       e.display();
-     }
+      }
+    }
+  } else {
+    for(V_Eruption e: selEruptions){
+      if(highlight) {
+         if(e.isHighlighted()) {
+           if(e.VEI >= 0) {
+             fill(255, e.calcGreen(), 0);
+           } else {
+             fill(0, 255, 0);
+           }
+           e.display();
+         } else if (showAll) {
+           fill(0, 0, 0, 25);
+           e.display();
+         }
+       } else {
+         if(e.VEI >= 0) {
+             fill(255, e.calcGreen(), 0);
+           } else {
+             fill(0, 255, 0);
+           }
+         e.display();
+       }
     }
   }
   
@@ -244,16 +280,39 @@ void loadData() {
 }
 
 void createSelectedArray(){
-  if(selectedVEI != veiDropDown.getSelectedItem() && selectedYear != yearDropDown.getSelectedItem()){
+  selection = true;
+  if(selectedVEI != veiDropDown.getSelectedItem() || selectedYear != yearDropDown.getSelectedItem()){
+    selEruptions.clear();
+    
     selectedVEI = veiDropDown.getSelectedItem();
     selectedYear = yearDropDown.getSelectedItem();
+       
+    if(selectedVEI == "All" && selectedYear == "All"){
+      for (String e: eruptionYears.keySet()){
+        selEruptions.addAll(eruptionYears.get(e));
+      }
+    }else if (selectedVEI == "All" && selectedYear != "All"){
+      selEruptions.addAll(eruptionYears.get(selectedYear));
+    }else if (selectedYear == "All" && selectedVEI != "All"){
+      selEruptions.addAll(eruptionVEI.get(selectedVEI));
+    }else{
+      
+      ArrayList<V_Eruption> tempA = eruptionYears.get(selectedYear);
+      for (V_Eruption ve: tempA){
+        print(ve);
+        if((""+ve.VEI).equals(selectedVEI)) {
+          
+          selEruptions.add(ve);
+        }
+      }
+    }
     
     //add correct information to selectedarraylist
     //r key input reset selection
   }
 }
 
-// created for dropDown might want to make a new class for the dropdowns we want to use
-//void handleDropListEvents(GDropList list, GEvent event){
-
-//}
+ //created for dropDown might want to make a new class for the dropdowns we want to use
+void handleDropListEvents(GDropList list, GEvent event){
+  
+}

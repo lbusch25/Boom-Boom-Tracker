@@ -17,25 +17,31 @@ class ParallelPlot{
       c.draw();
     } 
     for(int i = 0; i < activeTable.items.length - 1; i++){
-      for(int j = 0; j < activeTable.columns.size() - 1; j++) {
-        Column c1 = activeTable.columns.get(j);
-        Column c2 = activeTable.columns.get(j+1);
-        float p1 = c1.convertY(activeTable.items[i].getAttribute(c1.attName));
-        float p2 = c2.convertY(activeTable.items[i].getAttribute(c2.attName));
-        if(activeTable.items[i].highlighted) {
-          stroke(0, 0, 175, 255);
-          strokeWeight(0.5);
-          line(c1.getPosX(), p1, c2.getPosX(), p2);
-        } 
-        else if (showAll) {
-          if(columnIsHighlighted) {
-            stroke(0, 0, 0, 25);
-          } else {
-            stroke(0);
+      if(selection) {
+        if(selEruptions.contains(activeTable.items[i].eruption)) {
+          
+          for(int j = 0; j < activeTable.columns.size() - 1; j++) {         
+            Column c1 = activeTable.columns.get(j);         
+            Column c2 = activeTable.columns.get(j+1);         
+            float p1 = c1.convertY(activeTable.items[i].getAttribute(c1.attName));         
+            float p2 = c2.convertY(activeTable.items[i].getAttribute(c2.attName));         
+            if(activeTable.items[i].highlighted) {           
+              stroke(0, 0, 175, 255);           
+              strokeWeight(0.5);           
+              line(c1.getPosX(), p1, c2.getPosX(), p2);         
+              } else if (showAll) {           
+                if(columnIsHighlighted) {             
+                  stroke(0, 0, 0, 25);           
+                } else {             
+                   stroke(0);           
+                }          
+               strokeWeight(0.5);           
+               line(c1.getPosX(), p1, c2.getPosX(), p2);         
+             }
           }
-          strokeWeight(0.5);
-          line(c1.getPosX(), p1, c2.getPosX(), p2);
         }
+      }else {
+      for(int j = 0; j < activeTable.columns.size() - 1; j++) {         Column c1 = activeTable.columns.get(j);         Column c2 = activeTable.columns.get(j+1);         float p1 = c1.convertY(activeTable.items[i].getAttribute(c1.attName));         float p2 = c2.convertY(activeTable.items[i].getAttribute(c2.attName));         if(activeTable.items[i].highlighted) {           stroke(0, 0, 175, 255);           strokeWeight(0.5);           line(c1.getPosX(), p1, c2.getPosX(), p2);         }                  else if (showAll) {                       if(columnIsHighlighted) {                         stroke(0, 0, 0, 25);                       } else {                         stroke(0);                       }                       strokeWeight(0.5);                       line(c1.getPosX(), p1, c2.getPosX(), p2);           }         }
       }
     }
   }
@@ -104,7 +110,7 @@ class ParallelPlot{
               item.highlighted = false; //Prevents double highlighting on same column
             }
           }
-      }
+        }
     }
   }
   

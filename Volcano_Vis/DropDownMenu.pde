@@ -1,4 +1,5 @@
 import g4p_controls.*; //GUI lib import
+import java.util.Collections;
 
 class DropDownMenu{
   
@@ -17,7 +18,11 @@ class DropDownMenu{
 
     dropDown = new GDropList(canvas, x, y, 100, 100, NUM_ELEMENTS_SHOWN);
     
+    
+    Collections.sort(items);
+    items.add(0, "All");
     setDropDownItems(items);
+    
   }
 
   void setDropDownItems(ArrayList<String> items){

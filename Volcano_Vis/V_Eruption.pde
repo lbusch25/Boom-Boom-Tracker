@@ -59,7 +59,7 @@ class V_Eruption {
   }
   
   int calcGreen() {
-    float greenVal = map(VEI, 0, 7, 255, 0);
+    float greenVal = map(VEI, 0, 6, 255, 0);
     return (int) greenVal;
   }
   
