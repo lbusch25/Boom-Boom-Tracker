@@ -4,6 +4,10 @@ import g4p_controls.*; //GUI lib import
 DropDownMenu veiDropDown;
 DropDownMenu yearDropDown;
 TableReader eruptionData;
+
+String selectedVEI;
+String selectedYear;
+
 ParallelPlot eruptionPlot;
 
 boolean highlight;
@@ -23,6 +27,8 @@ HashMap<String, ArrayList<V_Eruption>> eruptionYears = new HashMap<String, Array
 HashMap<String, ArrayList<V_Eruption>> eruptionVEI = new HashMap<String, ArrayList<V_Eruption>>();
 ArrayList<V_Eruption> hlEruptions = new ArrayList<V_Eruption>();
 
+ArrayList<V_Eruption> selEruptions = new ArrayList<V_Eruption>();
+
 
 void setup() {
   size(1200, 800, P2D);
@@ -32,7 +38,7 @@ void setup() {
   highlight = false;
   drawRect = false;
   veiDropDown = new DropDownMenu(this, "vei", new ArrayList<String>(eruptionVEI.keySet()),width-100,height/2);
-  //yearDropDown = new DropDownMenu(this, "year", new ArrayList<String>(eruptionYears.keySet()));
+  yearDropDown = new DropDownMenu(this, "year", new ArrayList<String>(eruptionYears.keySet()),width-200, height/2);
   
   eruptionPlot = new ParallelPlot(eruptionData);
   font = createFont("Arial", 12);
@@ -245,7 +251,17 @@ void loadData() {
   eruptionData = new TableReader("Eruption_Emission_Merged.csv");
 }
 
-// created for dropDown might want to make a new class for the dropdowns we want to use
-void handleDropListEvents(GDropList list, GEvent event){
-
+void createSelectedArray(){
+  if(selectedVEI != veiDropDown.getSelectedItem() && selectedYear != yearDropDown.getSelectedItem()){
+    selectedVEI = veiDropDown.getSelectedItem();
+    selectedYear = yearDropDown.getSelectedItem();
+    
+    //add correct information to selectedarraylist
+    //r key input reset selection
+  }
 }
+
+// created for dropDown might want to make a new class for the dropdowns we want to use
+//void handleDropListEvents(GDropList list, GEvent event){
+
+//}

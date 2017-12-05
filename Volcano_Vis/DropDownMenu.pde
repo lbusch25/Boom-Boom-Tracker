@@ -7,6 +7,7 @@ class DropDownMenu{
   String type;
   PApplet canvas;
   int x, y;
+  String selected;
   
   DropDownMenu(PApplet canvasT, String typeT, ArrayList<String> items, int tempX, int tempY){
     x = tempX;
@@ -22,6 +23,11 @@ class DropDownMenu{
   void setDropDownItems(ArrayList<String> items){
     dropDown.setItems(items, 0);
   
+  }
+  
+  String getSelectedItem(){
+    selected = dropDown.getSelectedText();
+    return selected;
   }
   
   void draw(){
