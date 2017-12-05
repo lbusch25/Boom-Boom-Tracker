@@ -73,20 +73,7 @@ void draw() {
     rect(startX, startY, mouseX - startX, mouseY - startY);
     strokeWeight(1.0);
   }
-  
-  //Dropdown testing MOVE OUT OF DRAW NO MORE MEMORY!!!
-  //yearDlist = new GDropList(this, width-100, height/2, 100, 100);
-  //String[] list = new String[6];
-  //for (int i = 0;i<list.length;i++){
-  //  if(i == 0){
-  //    list[i] = "All";
-  //  }else{
-  //  list[i] = str(1990+i);
-  //  }
-  //}
-  
-  //yearDlist.setItems(list, -1);
-  //yearDlist.draw();
+
   veiDropDown.draw();
   eruptionPlot.draw();
   

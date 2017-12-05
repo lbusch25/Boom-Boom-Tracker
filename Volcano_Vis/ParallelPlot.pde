@@ -74,7 +74,7 @@ class ParallelPlot{
             Column s = activeTable.columns.get(i+1);
             c.setX(s.getPosX());
             c.deltaX = 0;
-            s.setX((i+1) * width/activeTable.numColumns);
+            s.setX((i)* (width)/activeTable.numColumns + 50);
             activeTable.columns.set(i, s);
             activeTable.columns.set(i+1, c);
           }
@@ -84,7 +84,7 @@ class ParallelPlot{
             Column s = activeTable.columns.get(i - 1);
             c.setX(s.getPosX());
             c.deltaX = 0;
-            s.setX((i+1) * width/activeTable.numColumns);
+            s.setX((i) * (width)/activeTable.numColumns + 50);
             activeTable.columns.set(i, s);
             activeTable.columns.set(i-1, c);
           }

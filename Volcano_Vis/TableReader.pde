@@ -38,7 +38,7 @@ class TableReader{
     columnNames = dataTable.getRow(0).getColumnTitles();
     for(int i = 0; i < numColumns; i++) {
         Column c = new Column(columnNames[i]);
-        c.setX(i*width/numColumns);
+        c.setX(i*(width*9/10)/numColumns + 50);
         c.setY(height - height/10);
         c.setMax(0);
         c.setMin(100000);
