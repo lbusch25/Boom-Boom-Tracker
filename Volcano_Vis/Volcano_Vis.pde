@@ -3,10 +3,13 @@ import g4p_controls.*; //GUI lib import
 //GDropList yearDlist; //For GUI
 DropDownMenu veiDropDown;
 DropDownMenu yearDropDown;
+DropDownMenu dataTypeDropDown;
+
 TableReader eruptionData;
 
 String selectedVEI;
 String selectedYear;
+String selectedDataType;
 
 ParallelPlot eruptionPlot;
 
@@ -20,16 +23,23 @@ PFont font;
 int startX;
 int startY;
 
+float maxS02;
+float minS02;
+
 V_Eruption[] eruptions;
 
 Table table;
 PImage earth;
 HashMap<String, ArrayList<V_Eruption>> eruptionYears = new HashMap<String, ArrayList<V_Eruption>>();
 HashMap<String, ArrayList<V_Eruption>> eruptionVEI = new HashMap<String, ArrayList<V_Eruption>>();
-ArrayList<V_Eruption> hlEruptions = new ArrayList<V_Eruption>();
 
+ArrayList<V_Eruption> hlEruptions = new ArrayList<V_Eruption>();
 ArrayList<V_Eruption> selEruptions = new ArrayList<V_Eruption>();
 
+ArrayList<String> dataTypeDDList = new ArrayList<String>();
+
+ArrayList<V_Eruption> emissionList = new ArrayList<V_Eruption>();
+ArrayList<V_Eruption> eruptionList = new ArrayList<V_Eruption>();
 
 void setup() {
   size(1200, 800, P2D);
@@ -38,13 +48,27 @@ void setup() {
   loadData();
   highlight = false;
   drawRect = false;
-  veiDropDown = new DropDownMenu(this, "vei", new ArrayList<String>(eruptionVEI.keySet()),width-100,height/2);
-  yearDropDown = new DropDownMenu(this, "year", new ArrayList<String>(eruptionYears.keySet()),width-200, height/2);
+  veiDropDown = new DropDownMenu(this, "VEI", new ArrayList<String>(eruptionVEI.keySet()),width-105,height/2+75);
+  yearDropDown = new DropDownMenu(this, "Year", new ArrayList<String>(eruptionYears.keySet()),width-105, height/2+185);
+  
+  dataTypeDDList.add("Emissions");
+  dataTypeDDList.add("Eruptions");
+  dataTypeDropDown = new DropDownMenu(this, "Data Type", dataTypeDDList, width-105, height/2+295);
   
   eruptionPlot = new ParallelPlot(eruptionData);
   font = createFont("Arial", 12);
   showAll = true;
   selection = false;
+  
+  for(Column c: eruptionPlot.activeTable.columns){
+    if (c.attName.equals("Total SO2 Mass")) {
+      maxS02 = c.attMax;
+      minS02 = c.attMin;
+    }
+  }
+  
+ 
+  
 }
 
 void draw() {
@@ -110,8 +134,22 @@ void draw() {
     strokeWeight(1.0);
   }
 
+  fill(200, 200, 200);
+  rect(width-110, height/2, 110, height/2);
+  fill(0);
+  textSize(18);
+  textAlign(CENTER, TOP);
+  text("Filters", width-60, height/2);
+  
+  
+
   veiDropDown.draw();
+  yearDropDown.draw();
+  dataTypeDropDown.draw();
+  
   eruptionPlot.draw();
+  
+ 
   
   
 }
@@ -170,6 +208,10 @@ void keyPressed() { //Add in parallel plot keypressed
     clearData();
   } if(key == ' ') {
     showAll = !showAll;
+  } if(key == 'r') {
+    yearDropDown.dropDown.setSelected(0);
+    veiDropDown.dropDown.setSelected(0);
+    dataTypeDropDown.dropDown.setSelected(0);
   }
 }
 
@@ -252,12 +294,19 @@ void loadData() {
       //int month = row.getInt("Start Month");
       //int day = row.getInt("Start Day");
       int vei = row.getInt("VEI");
-      //String name = row.getString("Volcano Name");
+      String name = row.getString("Volcano Name");
       float lat = row.getFloat("Latitude");
       float lng = row.getFloat("Longitude");
+      float S02 = row.getFloat("Total SO2 Mass");
       int number = row.getInt("Volcano Number");
-      V_Eruption e = new V_Eruption(number, vei, lat, lng);
+      V_Eruption e = new V_Eruption(number, vei, lat, lng, name, S02, year);
+      
       eruptions[i] = e;
+      if(S02 > 0) {
+        emissionList.add(e);
+      } else {
+        eruptionList.add(e);
+      }
       if(eruptionYears.containsKey(str(year))){ //Add eruption to the year arrayList
         eruptionYears.get(str(year)).add(e);
       }
@@ -281,16 +330,72 @@ void loadData() {
 
 void createSelectedArray(){
   selection = true;
-  if(selectedVEI != veiDropDown.getSelectedItem() || selectedYear != yearDropDown.getSelectedItem()){
+  if(selectedVEI != veiDropDown.getSelectedItem() || selectedYear != yearDropDown.getSelectedItem() || selectedDataType != dataTypeDropDown.getSelectedItem()){
     selEruptions.clear();
     
     selectedVEI = veiDropDown.getSelectedItem();
     selectedYear = yearDropDown.getSelectedItem();
+    selectedDataType = dataTypeDropDown.getSelectedItem();
        
-    if(selectedVEI == "All" && selectedYear == "All"){
+    if(selectedVEI == "All" && selectedYear == "All" && selectedDataType == "All"){
       for (String e: eruptionYears.keySet()){
         selEruptions.addAll(eruptionYears.get(e));
       }
+    } else if (selectedDataType != "All") {
+      if(selectedDataType.equals("Emissions")) {
+        if(selectedVEI.equals("All") && selectedYear.equals("All")) {
+          selEruptions.addAll(emissionList);
+        }
+        if(!selectedVEI.equals("All")) {
+          if(!selectedYear.equals("All")) {
+            for(V_Eruption ve: emissionList) {
+              if(("" + ve.VEI).equals(selectedVEI) && ve.year.equals(selectedYear)){
+                selEruptions.add(ve);
+              }
+            }
+          } else {
+            for(V_Eruption ve: emissionList) {
+              if(("" + ve.VEI).equals(selectedVEI)){
+                selEruptions.add(ve);
+              }
+            }
+          }
+        } else if (!selectedYear.equals("All")) {
+          for(V_Eruption ve: emissionList) {
+              if((ve.year).equals(selectedYear)){
+                selEruptions.add(ve);
+              }
+            }
+        }
+        
+      } else if (selectedDataType.equals("Eruptions")) {
+        if(selectedVEI.equals("All") && selectedYear.equals("All")) {
+          selEruptions.addAll(eruptionList);
+        }
+        if(!selectedVEI.equals("All")) {
+          if(!selectedYear.equals("All")) {
+            for(V_Eruption ve: eruptionList) {
+              if(("" + ve.VEI).equals(selectedVEI) && ve.year.equals(selectedYear)){
+                selEruptions.add(ve);
+              }
+            }
+          } else {
+            for(V_Eruption ve: eruptionList) {
+              if(("" + ve.VEI).equals(selectedVEI)){
+                selEruptions.add(ve);
+              }
+            }
+          }
+        } else if (!selectedYear.equals("All")) {
+          for(V_Eruption ve: eruptionList) {
+              if((ve.year).equals(selectedYear)){
+                selEruptions.add(ve);
+              }
+            }
+        }
+        
+      }
+   
     }else if (selectedVEI == "All" && selectedYear != "All"){
       selEruptions.addAll(eruptionYears.get(selectedYear));
     }else if (selectedYear == "All" && selectedVEI != "All"){

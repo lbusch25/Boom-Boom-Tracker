@@ -16,7 +16,7 @@ class DropDownMenu{
     canvas = canvasT;
     type = typeT;
 
-    dropDown = new GDropList(canvas, x, y, 100, 100, NUM_ELEMENTS_SHOWN);
+    dropDown = new GDropList(canvas, x, y+25, 100, 100, NUM_ELEMENTS_SHOWN);
     
     
     Collections.sort(items);
@@ -36,6 +36,10 @@ class DropDownMenu{
   }
   
   void draw(){
+    fill(0, 0, 0);
+    textAlign(CENTER, TOP);
+    textSize(16);
+    text(type, x+50, y);
     dropDown.draw();
   }
 }

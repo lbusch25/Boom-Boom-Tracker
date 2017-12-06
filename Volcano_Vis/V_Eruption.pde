@@ -1,35 +1,26 @@
 class V_Eruption {
   
-  float x, y;
+  float x, y, S02;
   int eruptionNum, VEI;
+  
+  String name;
+  String year;
   
   boolean over;
   boolean highlighted;
   
   Item item;
   
-  //HashMap<String, Float> attributes;
-  
-  V_Eruption(int num, int vei, float latitude, float longitude) {
+  V_Eruption(int num, int vei, float latitude, float longitude, String n, float s2, int yr) {
     eruptionNum = num;
     VEI = vei;
     x = map(longitude, -180, 180, 0, width);
     y = map(latitude, 90, -90, 0, height/2);
-    
+    name = n;
+    S02 = s2;
+    year = "" + yr;
     highlighted = false;
-    //attributes = new HashMap<String, Float>();
-    //attributes.put("lat", latitude);
-    //attributes.put("long", longitude);
-    //attributes.put("VEI", (float) VEI);
   }
-  
-  //void addAttribute(String s, Float f) {
-  //  attributes.put(s, f);
-  //}
-  
-  //float getAttribute(String s) {
-  //  return attributes.get(s);
-  //}
   
   void setItem(Item i) {
     this.item = i;
@@ -47,6 +38,11 @@ class V_Eruption {
   
   boolean isOver() {
     return over;
+  }
+  
+  float calcRadius(float s02) {
+    float rad = map(s02, minS02, maxS02, 15, 30);
+    return rad;
   }
   
   boolean isHighlighted() {
@@ -67,7 +63,15 @@ class V_Eruption {
     stroke(0);
     if(over) {
       fill(135, 206, 235);
+      textSize(14);
+      text(name, x, y-10);
     }
     triangle(x - 7, y + 7, x, y, x + 7, y + 7);
+    
+    if(this.item.getAttribute("Total SO2 Mass") > 0.0) {
+      fill(0, 255, 0, 25);
+      float radius = calcRadius(item.getAttribute("Total SO2 Mass"));
+      ellipse(x, y+3.5, radius, radius);
+    }
   }
 }
