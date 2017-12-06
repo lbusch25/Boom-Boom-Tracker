@@ -212,6 +212,7 @@ void keyPressed() { //Add in parallel plot keypressed
     yearDropDown.dropDown.setSelected(0);
     veiDropDown.dropDown.setSelected(0);
     dataTypeDropDown.dropDown.setSelected(0);
+    clearData();
   }
 }
 
