@@ -44,7 +44,7 @@ ArrayList<V_Eruption> eruptionList = new ArrayList<V_Eruption>();
 void setup() {
   size(1200, 800, P2D);
   pixelDensity(displayDensity());
-  earth = loadImage("Earth.png");
+  earth = loadImage("Gray_Earth.png");
   loadData();
   highlight = false;
   drawRect = false;
@@ -140,6 +140,23 @@ void draw() {
   textSize(18);
   textAlign(CENTER, TOP);
   text("Filters", width-60, height/2);
+  
+  textSize(12);
+  text("VEI", (.8*width) - 35, height/2 - 22);
+  text("-1", (.8*width) - 10, height/2 - 35);
+  fill(0, 255, 0);
+  rect((.8*width) - 20, height/2 - 20, 20, 10);
+  
+  for(int i = 0; i < 7; i++) {
+    float green = map(i, 0, 7, 255, 0);
+    fill(255, green, 0);
+    rect((.8*width) + 20*i, height/2 - 20, 20, 10);
+    
+    fill(0);
+    textSize(12);
+    textAlign(CENTER, TOP);
+    text("" + i, (.8*width) + 20*i + 10, height/2 - 35);
+  }
   
   
 

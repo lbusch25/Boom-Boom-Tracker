@@ -55,7 +55,7 @@ class V_Eruption {
   }
   
   int calcGreen() {
-    float greenVal = map(VEI, 0, 6, 255, 0);
+    float greenVal = map(VEI, 0, 7, 255, 0);
     return (int) greenVal;
   }
   
@@ -69,7 +69,11 @@ class V_Eruption {
     triangle(x - 7, y + 7, x, y, x + 7, y + 7);
     
     if(this.item.getAttribute("Total SO2 Mass") > 0.0) {
-      fill(0, 255, 0, 25);
+      if(!highlight) {
+        fill(0, 255, 0, 25);
+      } else {
+        fill(0, 255, 0, 10);
+      }
       float radius = calcRadius(item.getAttribute("Total SO2 Mass"));
       ellipse(x, y+3.5, radius, radius);
     }
