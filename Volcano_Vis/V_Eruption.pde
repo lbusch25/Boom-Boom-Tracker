@@ -62,9 +62,11 @@ class V_Eruption {
   void display() {
     stroke(0);
     if(over) {
-      fill(135, 206, 235);
+      fill(0);
       textSize(14);
       text(name, x, y-10);
+      fill(135, 206, 235);
+
     }
     triangle(x - 7, y + 7, x, y, x + 7, y + 7);
     
