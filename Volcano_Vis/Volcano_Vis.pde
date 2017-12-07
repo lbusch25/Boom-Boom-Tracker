@@ -183,13 +183,13 @@ void mousePressed() {
        }
      }
      drawRect = true;
-   } else if (mouseY > height/2) {
+   } else if (mouseY > height/2 && mouseX < width-110) {
      eruptionPlot.mousePressed();
    }
 }
 
 void mouseDragged() {
-  if (mouseY > height/2) {
+  if (mouseY > height/2 && mouseX < width-110) {
     eruptionPlot.mouseDragged();
   }
 }
@@ -197,7 +197,7 @@ void mouseDragged() {
 void mouseReleased() {
   if(mouseY <= height/2) {
     highlightMapArea();
-  } else if (mouseY > height/2) {
+  } else if (mouseY > height/2 && mouseX < width-110) {
     eruptionPlot.mouseReleased();
   }
   drawRect = false;
@@ -333,7 +333,7 @@ void createSelectedArray(){
   selection = true;
   if(selectedVEI != veiDropDown.getSelectedItem() || selectedYear != yearDropDown.getSelectedItem() || selectedDataType != dataTypeDropDown.getSelectedItem()){
     selEruptions.clear();
-    
+    clearData();
     selectedVEI = veiDropDown.getSelectedItem();
     selectedYear = yearDropDown.getSelectedItem();
     selectedDataType = dataTypeDropDown.getSelectedItem();
