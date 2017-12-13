@@ -49,7 +49,7 @@ void setup() {
   highlight = false;
   drawRect = false;
   veiDropDown = new DropDownMenu(this, "VEI", new ArrayList<String>(eruptionVEI.keySet()),width-105,height/2+75);
-  yearDropDown = new DropDownMenu(this, "Year", new ArrayList<String>(eruptionYears.keySet()),width-105, height/2+185);
+  yearDropDown = new DropDownMenu(this, "Start Year", new ArrayList<String>(eruptionYears.keySet()),width-105, height/2+185);
   
   dataTypeDDList.add("Emissions");
   dataTypeDDList.add("Eruptions");
