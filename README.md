@@ -6,7 +6,7 @@ An interactive visualization tool created using Processing. Boom-Boom tracker is
 
 To run **Boom-Boom-Tracker** follow these steps:
 
-1. Download Processing 3 from (https://processing.org)
+1. Download Processing 3 from [processing.org](https://processing.org).
 2. Download the [G4P processing library](http://www.lagers.org.uk/g4p/download.html) and add it to your libs folder inside processing.
 3. Download our project from github, it should run smoothly once you add the G4P library to your libs folder in processing.
 
