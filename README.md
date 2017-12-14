@@ -10,3 +10,6 @@ To run **Boom-Boom-Tracker** follow these steps:
 2. Download the [G4P processing library](http://www.lagers.org.uk/g4p/download.html) and add it to your libs folder inside processing.
 3. Download our project from github, it should run smoothly once you add the G4P library to your libs folder in processing.
 
+## Data
+
+**Boom-Boom-Tracker** uses data from the [Smithsonian Institute Global Volcanism Program](http://volcano.si.edu). This data includes eruption data and SO2 emissions, downloaded as CSV files from the Smithsonian's database. 
