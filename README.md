@@ -13,3 +13,5 @@ To run **Boom-Boom-Tracker** follow these steps:
 ## Data
 
 **Boom-Boom-Tracker** uses data from the [Smithsonian Institute Global Volcanism Program](http://volcano.si.edu). This data includes eruption data and SO2 emissions, downloaded as CSV files from the Smithsonian's database. 
+
+We downloaded files for both eruption data and emission data, and then processed the data files to combine them into one usable data file by matching eruptions and emissions using a combination of Volcano Name and Start Date. The code for this processing can be found in our 
